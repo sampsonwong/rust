@@ -541,6 +541,8 @@ mod imp {
     #[allow(non_snake_case)]
     #[allow(dead_code)]
     mod uw {
+        pub use self::_Unwind_Reason_Code::*;
+
         use libc;
 
         #[repr(C)]
@@ -813,11 +815,11 @@ mod imp {
         pub fn init_frame(frame: &mut super::STACKFRAME64,
                           ctx: &CONTEXT) -> libc::DWORD {
             frame.AddrPC.Offset = ctx.Eip as u64;
-            frame.AddrPC.Mode = super::AddrModeFlat;
+            frame.AddrPC.Mode = super::ADDRESS_MODE::AddrModeFlat;
             frame.AddrStack.Offset = ctx.Esp as u64;
-            frame.AddrStack.Mode = super::AddrModeFlat;
+            frame.AddrStack.Mode = super::ADDRESS_MODE::AddrModeFlat;
             frame.AddrFrame.Offset = ctx.Ebp as u64;
-            frame.AddrFrame.Mode = super::AddrModeFlat;
+            frame.AddrFrame.Mode = super::ADDRESS_MODE::AddrModeFlat;
             super::IMAGE_FILE_MACHINE_I386
         }
     }
@@ -903,11 +905,11 @@ mod imp {
         pub fn init_frame(frame: &mut super::STACKFRAME64,
                           ctx: &CONTEXT) -> DWORD {
             frame.AddrPC.Offset = ctx.Rip as u64;
-            frame.AddrPC.Mode = super::AddrModeFlat;
+            frame.AddrPC.Mode = super::ADDRESS_MODE::AddrModeFlat;
             frame.AddrStack.Offset = ctx.Rsp as u64;
-            frame.AddrStack.Mode = super::AddrModeFlat;
+            frame.AddrStack.Mode = super::ADDRESS_MODE::AddrModeFlat;
             frame.AddrFrame.Offset = ctx.Rbp as u64;
-            frame.AddrFrame.Mode = super::AddrModeFlat;
+            frame.AddrFrame.Mode = super::ADDRESS_MODE::AddrModeFlat;
             super::IMAGE_FILE_MACHINE_AMD64
         }
     }
